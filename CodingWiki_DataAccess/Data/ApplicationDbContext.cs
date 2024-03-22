@@ -16,5 +16,10 @@ namespace CodingWiki_DataAccess.Data
         {
             options.UseSqlServer("Server=S-HESAM-S;Database=CodingWiki;TrustServerCertificate=True;Trusted_Connection=True;");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>().Property(u => u.Price).HasPrecision(10, 5);
+        }
     }
 }
