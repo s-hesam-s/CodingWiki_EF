@@ -44,6 +44,8 @@ namespace CodingWiki_DataAccess.Data
                 new Publisher { Publisher_Id = 2, Name = "Pub 2 John", Location = "New York" },
                 new Publisher { Publisher_Id = 3, Name = "Pub 3 Ben", Location = "Hawaii" }
                 );
+
+            modelBuilder.Entity<BookAuthorMap>().HasKey(u => new { u.Author_Id, u.Book_Id });
         }
     }
 }
