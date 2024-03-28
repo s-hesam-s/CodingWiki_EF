@@ -23,8 +23,14 @@ void GetBook()
     try
     {
         using var context = new ApplicationDbContext();
-        var books = context.Books.Where(u => u.Price > 20).OrderBy(u => u.Title).ThenByDescending(u => u.ISBN);
+        var books = context.Books.Skip(0).Take(2);
         //Console.WriteLine(book.Title + " - " + book.ISBN);
+        foreach (var book in books)
+        {
+            Console.WriteLine(book.Title + " - " + book.ISBN);
+        }
+
+        books = context.Books.Skip(4).Take(1);
         foreach (var book in books)
         {
             Console.WriteLine(book.Title + " - " + book.ISBN);
