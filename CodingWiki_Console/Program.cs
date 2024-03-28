@@ -15,7 +15,7 @@ Console.WriteLine("Hello, World!");
 //}
 
 //AddBook();
-GetAllBooks();
+//GetAllBooks();
 GetBook();
 
 void GetBook()
@@ -23,7 +23,7 @@ void GetBook()
     try
     {
         using var context = new ApplicationDbContext();
-        var books = context.Books;
+        var books = context.Books.Where(u => u.Price > 20).OrderBy(u => u.Title).ThenByDescending(u => u.ISBN);
         //Console.WriteLine(book.Title + " - " + book.ISBN);
         foreach (var book in books)
         {
