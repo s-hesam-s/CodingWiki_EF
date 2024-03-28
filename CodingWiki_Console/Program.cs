@@ -23,7 +23,7 @@ void GetBook()
     try
     {
         using var context = new ApplicationDbContext();
-        var book = context.Books.FirstOrDefault(u => u.Title == "Cookie Jar");
+        var book = context.Books.Find(6);
         Console.WriteLine(book.Title + " - " + book.ISBN);
     }
     catch (Exception e)
