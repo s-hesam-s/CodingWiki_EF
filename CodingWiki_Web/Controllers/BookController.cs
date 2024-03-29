@@ -122,12 +122,35 @@ namespace CodingWiki_Web.Controllers
 
         public async Task<IActionResult> Playground()
         {
-            IEnumerable<Book> BookList1 = _db.Books;
-            var FilteredBook1 = BookList1.Where(b => b.Price > 50).ToList();
+            //IEnumerable vs IQueryable
 
-            IQueryable<Book> BookList2 = _db.Books;
-            var fileredBook2 = BookList2.Where(b => b.Price > 50).ToList();
+            //IEnumerable<Book> BookList1 = _db.Books;
+            //var FilteredBook1 = BookList1.Where(b => b.Price > 50).ToList();
 
+            //IQueryable<Book> BookList2 = _db.Books;
+            //var fileredBook2 = BookList2.Where(b => b.Price > 50).ToList();
+
+            //---------------------------------------------------------------------------------------------
+
+            //Attach vs Update
+
+            //BookDetail bookDetail1 = _db.BookDetails.Include(u => u.Book).FirstOrDefault(u => u.BookDetail_Id == 10);
+            //bookDetail1.Book.Price = 75;
+            //_db.BookDetails.Update(bookDetail1);
+            //_db.SaveChanges();
+
+            //BookDetail bookDetail2 = _db.BookDetails.Include(u => u.Book).FirstOrDefault(u => u.BookDetail_Id == 10);
+            //bookDetail2.Book.Price = 85;
+            //_db.BookDetails.Attach(bookDetail2);
+            //_db.SaveChanges();
+
+            Category category = _db.Categories.FirstOrDefault();
+            _db.Entry(category).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            //---------------------------------------------------------------------------------------------
+
+            //Deferred Execution
 
             //var bookTemp = _db.Books.FirstOrDefault();
             //bookTemp.Price = 100;
@@ -150,6 +173,7 @@ namespace CodingWiki_Web.Controllers
             //var bookCount1 = bookCollection2.Count();
 
             //var bookCount2 = _db.Books.Count();
+
             return RedirectToAction(nameof(Index));
         }
     }
