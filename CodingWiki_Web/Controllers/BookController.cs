@@ -43,5 +43,36 @@ namespace CodingWiki_Web.Controllers
             }
             return View(obj);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(BookVM obj)
+        {
+            if (obj.Book.BookId == 0)
+            {
+                //create
+                await _db.Books.AddAsync(obj.Book);
+            }
+            else
+            {
+                //update
+                _db.Books.Update(obj.Book);
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Book obj = new();
+            obj = _db.Books.FirstOrDefault(u => u.BookId == id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Books.Remove(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
