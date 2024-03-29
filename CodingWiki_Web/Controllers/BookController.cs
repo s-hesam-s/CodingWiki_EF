@@ -3,6 +3,7 @@ using CodingWiki_Model.Models;
 using CodingWiki_Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingWiki_Web.Controllers
 {
@@ -16,15 +17,15 @@ namespace CodingWiki_Web.Controllers
 
         public IActionResult Index()
         {
-            List<Book> objList = _db.Books.ToList();
-            foreach (var obj in objList)
-            {
-                //least effeicnet
-                //obj.Publisher = _db.Publishers.Find(obj.Publisher_Id);
+            List<Book> objList = _db.Books.Include(u => u.Publisher).ToList();
+            //foreach (var obj in objList)
+            //{
+            //    //least effeicnet
+            //    //obj.Publisher = _db.Publishers.Find(obj.Publisher_Id);
 
-                //more effeicnet
-                _db.Entry(obj).Reference(u => u.Publisher).Load();
-            }
+            //    //more effeicnet
+            //    _db.Entry(obj).Reference(u => u.Publisher).Load();
+            //}
             return View(objList);
         }
 
