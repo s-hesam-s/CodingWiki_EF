@@ -13,6 +13,10 @@ namespace CodingWiki_DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
+
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -29,15 +33,11 @@ namespace CodingWiki_DataAccess.Data
         public DbSet<Fluent_BookAuthorMap> Fluent_BookAuthorMaps { get; set; }
 
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            //options.UseSqlServer("Server=S-HESAM-S;Database=CodingWiki;TrustServerCertificate=True;Trusted_Connection=True;")
-            //.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information); ;
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    options.UseSqlServer("Server=S-HESAM-S;Database=CodingWiki;TrustServerCertificate=True;Trusted_Connection=True;")
+        //    .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information); ;
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
