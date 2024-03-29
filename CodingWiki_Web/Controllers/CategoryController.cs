@@ -27,7 +27,7 @@ namespace CodingWiki_Web.Controllers
                 return View(obj);
             }
             //edit
-            obj = _db.Categories.First(u => u.CategoryId == id);
+            obj = _db.Categories.FirstOrDefault(u => u.CategoryId == id);
             if (obj == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace CodingWiki_Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Category obj = new();
-            obj = _db.Categories.First(u => u.CategoryId == id);
+            obj = _db.Categories.FirstOrDefault(u => u.CategoryId == id);
             if (obj == null)
             {
                 return NotFound();
