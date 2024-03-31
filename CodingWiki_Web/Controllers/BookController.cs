@@ -245,11 +245,15 @@ namespace CodingWiki_Web.Controllers
             //---------------------------------------------------------------------------------------------
 
             //Raw SQL
+
             var bookRaw = _db.Books.FromSqlRaw("Select * from dbo.books").ToList();
 
             //SQL Injection attack prone
             int id = 2;
             var bookTemp1 = _db.Books.FromSqlInterpolated($"Select * from dbo.books where BookId={id}").ToList();
+
+            //SP
+            var booksSproc = _db.Books.FromSqlInterpolated($"EXEC dbo.getBookDetailById {id}").ToList();
 
 
             return RedirectToAction(nameof(Index));
