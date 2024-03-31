@@ -120,6 +120,21 @@ namespace CodingWiki_Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult ManageAuthors(int id)
+        {
+            BookAuthorVM obj = new()
+            {
+                BookAuthorList = _db.BookAuthorMaps.Include(u => u.Author).Include(u => u.Book)
+                    .Where(u => u.Book_Id == id).ToList(),
+                BookAuthor = new()
+                {
+                    Book_Id = id
+                },
+                Book = _db.Books.FirstOrDefault(u => u.BookId == id)
+            };
+            return View(obj);
+        }
+
         public async Task<IActionResult> Playground()
         {
             //IEnumerable vs IQueryable
