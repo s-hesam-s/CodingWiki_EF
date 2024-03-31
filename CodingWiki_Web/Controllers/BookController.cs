@@ -204,9 +204,9 @@ namespace CodingWiki_Web.Controllers
             //_db.BookDetails.Attach(bookDetail2);
             //_db.SaveChanges();
 
-            Category category = _db.Categories.FirstOrDefault();
-            _db.Entry(category).State = EntityState.Modified;
-            _db.SaveChanges();
+            //Category category = _db.Categories.FirstOrDefault();
+            //_db.Entry(category).State = EntityState.Modified;
+            //_db.SaveChanges();
 
             //---------------------------------------------------------------------------------------------
 
@@ -233,6 +233,14 @@ namespace CodingWiki_Web.Controllers
             //var bookCount1 = bookCollection2.Count();
 
             //var bookCount2 = _db.Books.Count();
+
+            //---------------------------------------------------------------------------------------------
+
+            //VIEWS
+
+            var viewList = _db.GetMainBookDetails.ToList();
+            var viewList1 = _db.GetMainBookDetails.FirstOrDefault();
+            var viewList2 = _db.GetMainBookDetails.Where(u => u.Price > 500);
 
             return RedirectToAction(nameof(Index));
         }
