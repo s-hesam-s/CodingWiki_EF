@@ -238,9 +238,19 @@ namespace CodingWiki_Web.Controllers
 
             //VIEWS
 
-            var viewList = _db.GetMainBookDetails.ToList();
-            var viewList1 = _db.GetMainBookDetails.FirstOrDefault();
-            var viewList2 = _db.GetMainBookDetails.Where(u => u.Price > 500);
+            //var viewList = _db.GetMainBookDetails.ToList();
+            //var viewList1 = _db.GetMainBookDetails.FirstOrDefault();
+            //var viewList2 = _db.GetMainBookDetails.Where(u => u.Price > 500);
+
+            //---------------------------------------------------------------------------------------------
+
+            //Raw SQL
+            var bookRaw = _db.Books.FromSqlRaw("Select * from dbo.books").ToList();
+
+            //SQL Injection attack prone
+            int id = 2;
+            var bookTemp1 = _db.Books.FromSqlInterpolated($"Select * from dbo.books where BookId={id}").ToList();
+
 
             return RedirectToAction(nameof(Index));
         }
