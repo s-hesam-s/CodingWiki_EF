@@ -31,6 +31,7 @@ namespace CodingWiki_DataAccess.Data
         public DbSet<Fluent_Author> Fluent_Authors { get; set; }
         public DbSet<Fluent_Publisher> Fluent_Publishers { get; set; }
         public DbSet<Fluent_BookAuthorMap> Fluent_BookAuthorMaps { get; set; }
+        public DbSet<MainBookDetails> GetMainBookDetails { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -68,6 +69,8 @@ namespace CodingWiki_DataAccess.Data
             modelBuilder.ApplyConfiguration(new FluentBookConfig());
             modelBuilder.ApplyConfiguration(new FluentBookDetailConfig());
             modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
+
+            modelBuilder.Entity<MainBookDetails>().HasNoKey().ToView("GetMainBookDetails");
         }
     }
 }
