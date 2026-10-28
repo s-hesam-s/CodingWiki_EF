@@ -64,7 +64,11 @@ Most console database exercises are commented out; running the console does not 
 
 ## Verification
 
-There is no automated test suite in this repository. Build first, then verify the selected MVC or console exercise against an isolated database. Schema creation and data changes are separate steps, not performed by the build command.
+The isolated behavior suite checks annotation validation, EF model/relationship contracts and real Razor preview responses through TestServer. It does not configure a database connection or run the original application host. Database query execution, persistence, migrations and SQL Server behavior require separate verification.
+
+```powershell
+dotnet test tests/Behavior.Tests/Behavior.Tests.csproj --configuration Release
+```
 
 ## Project scope and reuse
 
@@ -72,7 +76,7 @@ This is an educational repository. The implementation notes describe the code in
 
 ## Continuous integration
 
-GitHub Actions restores and builds `CodingWiki.sln` in Release mode on Windows using the .NET 10 target. No automated application test suite exists in this repository, so the workflow does not claim application-test coverage. The application hosts, database migrations/seeds, cloud integrations and payments are not started by CI.
+GitHub Actions restores and builds `CodingWiki.sln` in Release mode on Windows using the .NET 10 target. It also runs the isolated model and HTTP preview regression suite. These tests do not prove production CRUD or SQL Server behavior. The application hosts, database migrations/seeds, cloud integrations and payments are not started by CI.
 
 The [CI workflow](.github/workflows/ci.yml) runs for pull requests and pushes to `master`, and can be started manually. It uses read-only repository permissions and does not deploy the project.
 
@@ -81,3 +85,7 @@ The [CI workflow](.github/workflows/ci.yml) runs for pull requests and pushes to
 See [runtime, dependency audit and migration notes](docs/RUNTIME.md) for the .NET 10 target and verification boundaries.
 
 [Local verification snapshot](docs/VERIFICATION.md) records the build, isolated-test and dependency-audit boundaries.
+
+## Maintenance checks
+
+The existing CI also runs weekly on Monday and checks tracked Markdown file destinations with `scripts/check_doc_links.py`. Its negative tests cover moved documents, missing picture variants, paths outside the repository and untracked local drafts. External URLs and heading fragments are intentionally outside this offline file check. Scheduled runs do not deploy or start original application hosts.
