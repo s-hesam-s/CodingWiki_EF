@@ -2,6 +2,14 @@
 
 Educational Entity Framework Core examples built around books, authors, publishers and related entities, with console exercises and an ASP.NET Core MVC application.
 
+## Captured preview
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="docs/screenshots/portfolio-poster.png" /><source type="image/webp" srcset="docs/screenshots/portfolio.webp" /><img src="docs/screenshots/portfolio.gif" width="100%" alt="CodingWiki EF — actual captured UI states" /></picture>
+
+Existing book, book-detail and author views with sample relationships. No EF query, save or database operation.
+
+[Reproduce this capture and view the static image](docs/PORTFOLIO-PREVIEW.md)
+
 ## Implementation highlights
 
 - Entity relationships, composite mapping entities and sample data definitions.
