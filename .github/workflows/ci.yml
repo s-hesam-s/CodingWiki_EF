@@ -34,3 +34,7 @@ jobs:
         run: dotnet restore CodingWiki.sln
       - name: Build solution
         run: dotnet build CodingWiki.sln --configuration Release --no-restore
+      - name: Restore isolated preview
+        run: dotnet restore tools/Preview/Preview.csproj
+      - name: Build isolated preview
+        run: dotnet build tools/Preview/Preview.csproj --configuration Release --no-restore
