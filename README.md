@@ -20,7 +20,7 @@ Educational Entity Framework Core examples built around books, authors, publishe
 
 ## Requirements and configuration
 
-Use an SDK capable of targeting .NET 8 and an isolated SQL Server development database. Package restore requires access to the configured NuGet feeds. These are existing .NET 8 examples; dependency and runtime modernization are separate work.
+Use an SDK capable of targeting .NET 10 and an isolated SQL Server development database. Package restore requires access to the configured NuGet feeds. The projects target .NET 10 LTS. Install the latest supported .NET 10 SDK and runtime patch.
 
 The MVC host reads `ConnectionStrings:DefaultConnection`. Set `ConnectionStrings__DefaultConnection` in your own shell or local secret configuration; do not copy a machine-specific connection target into shared settings.
 
@@ -64,6 +64,12 @@ This is an educational repository. The implementation notes describe the code in
 
 ## Continuous integration
 
-GitHub Actions restores and builds `CodingWiki.sln` in Release mode on Windows using the existing .NET 8 target. No automated application test suite exists in this repository, so the workflow does not claim application-test coverage. The application hosts, database migrations/seeds, cloud integrations and payments are not started by CI.
+GitHub Actions restores and builds `CodingWiki.sln` in Release mode on Windows using the .NET 10 target. No automated application test suite exists in this repository, so the workflow does not claim application-test coverage. The application hosts, database migrations/seeds, cloud integrations and payments are not started by CI.
 
 The [CI workflow](.github/workflows/ci.yml) runs for pull requests and pushes to `master`, and can be started manually. It uses read-only repository permissions and does not deploy the project.
+
+## Runtime maintenance
+
+See [runtime, dependency audit and migration notes](docs/RUNTIME.md) for the .NET 10 target and verification boundaries.
+
+[Local verification snapshot](docs/VERIFICATION.md) records the build, isolated-test and dependency-audit boundaries.
